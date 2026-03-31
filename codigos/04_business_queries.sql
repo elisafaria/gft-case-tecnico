@@ -4,7 +4,7 @@ SELECT
     op.nm_razao_social AS operadora
     , SUM(b.qt_beneficiario_ativo) AS total_beneficiarios
 FROM ans_data_curated.fato_beneficiarios b
-LEFT JOIN ans_data_curated.dim_operadora op 
+JOIN ans_data_curated.dim_operadora op 
     ON b.cd_operadora = op.cd_operadora
 GROUP BY op.nm_razao_social
 ORDER BY total_beneficiarios DESC
@@ -17,7 +17,7 @@ SELECT
     p.de_faixa_etaria AS faixa_etaria
     , SUM(b.qt_beneficiario_ativo) AS total_beneficiarios
 FROM ans_data_curated.fato_beneficiarios b
-LEFT JOIN ans_data_curated.dim_perfil p
+JOIN ans_data_curated.dim_perfil p
     ON p.id_perfil = b.id_perfil
 GROUP BY p.de_faixa_etaria
 ORDER BY total_beneficiarios DESC
