@@ -1,0 +1,1 @@
+# gft-case-tecnico
