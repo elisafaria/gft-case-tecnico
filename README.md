@@ -87,7 +87,7 @@ A estrutura construída permite responder eficientemente perguntas de negócio c
 A lógica de transformação está versionada na pasta codigos/, enumerada na ordem exata de execução do pipeline:
 - 01_raw.sql: Criação dos bancos de dados e mapeamento da tabela externa bruta.
 - 02_refined.sql: Tratamento de tipos e conversão para Parquet.
-- 02_curated.sql: Criação das tabelas fato e dimensão.
+- 03_curated.sql: Criação das tabelas fato e dimensão.
 - 04_business_queries.sql: Consultas analíticas finais.
   
 Os resultados brutos em CSV estão disponíveis na pasta resultados/:
