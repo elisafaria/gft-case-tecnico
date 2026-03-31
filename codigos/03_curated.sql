@@ -87,21 +87,30 @@ WITH (
     write_compression = 'SNAPPY'
 ) AS
 SELECT
-      id_cmpt_movel -- FK
-    , cd_operadora -- FK
-    , cd_municipio -- FK
-    , cd_plano -- FK
+      id_cmpt_movel
+    , cd_operadora
+    , cd_municipio
+    , cd_plano
     , to_hex(
-       md5(
-        to_utf8(
-            coalesce(tp_sexo, '') ||
-            coalesce(de_faixa_etaria, '') ||
-            coalesce(de_faixa_etaria_reaj, '') ||
-            coalesce(tipo_vinculo, '')
+        md5(
+            to_utf8(
+                coalesce(tp_sexo, '') ||
+                coalesce(de_faixa_etaria, '') ||
+                coalesce(de_faixa_etaria_reaj, '') ||
+                coalesce(tipo_vinculo, '')
+            )
         )
-      )
-    ) AS id_perfil -- FK
-    , qt_beneficiario_ativo
-    , qt_beneficiario_aderido
-    , qt_beneficiario_cancelado
-FROM ans_data_refined.beneficiarios;
+      ) AS id_perfil
+    , SUM(qt_beneficiario_ativo) AS qt_beneficiario_ativo
+    , SUM(qt_beneficiario_aderido) AS qt_beneficiario_aderido
+    , SUM(qt_beneficiario_cancelado) AS qt_beneficiario_cancelado
+FROM ans_data_refined.beneficiarios
+GROUP BY
+      id_cmpt_movel
+    , cd_operadora
+    , cd_municipio
+    , cd_plano
+    , tp_sexo
+    , de_faixa_etaria
+    , de_faixa_etaria_reaj
+    , tipo_vinculo;
