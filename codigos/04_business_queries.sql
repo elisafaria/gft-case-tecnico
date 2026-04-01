@@ -13,15 +13,17 @@ LIMIT 5;
 
 -- B) Qual é a faixa etária com mais beneficiários e quantos são?
 
-SELECT
-    p.de_faixa_etaria AS faixa_etaria
-    , SUM(b.qt_beneficiario_ativo) AS total_beneficiarios
-FROM ans_data_curated.fato_beneficiarios b
-JOIN ans_data_curated.dim_perfil p
-    ON p.id_perfil = b.id_perfil
-GROUP BY p.de_faixa_etaria
-ORDER BY total_beneficiarios DESC
-LIMIT 1;
+SELECT de_faixa_etaria, total_beneficiarios
+FROM (
+    SELECT
+        p.de_faixa_etaria,
+        SUM(b.qt_beneficiario_ativo) AS total_beneficiarios,
+        RANK() OVER (ORDER BY SUM(b.qt_beneficiario_ativo) DESC) AS ranking
+    FROM ans_data_curated.fato_beneficiarios b
+    JOIN ans_data_curated.dim_perfil p ON p.id_perfil = b.id_perfil
+    GROUP BY p.de_faixa_etaria
+)
+WHERE ranking = 1;
 
 
 -- C) Liste, de forma decrescente, a quantidade de beneficiários por município.
