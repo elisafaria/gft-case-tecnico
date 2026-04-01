@@ -4,6 +4,7 @@ WITH (
     format = 'PARQUET',
     external_location = 's3://gft-case-ans-data/refined-layer/',
     write_compression = 'SNAPPY'
+    partitioned_by = ARRAY['id_cmpt_movel']
 ) AS
 SELECT
     -- Datas
