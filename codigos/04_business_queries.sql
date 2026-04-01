@@ -13,7 +13,9 @@ LIMIT 5;
 
 -- B) Qual é a faixa etária com mais beneficiários e quantos são?
 
-SELECT de_faixa_etaria, total_beneficiarios
+SELECT 
+    de_faixa_etaria
+    , total_beneficiarios
 FROM (
     SELECT
         p.de_faixa_etaria,
