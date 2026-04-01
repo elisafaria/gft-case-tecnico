@@ -14,11 +14,12 @@ O fluxo dos dados é dividido em três camadas:
 
 - Camada Raw (Bronze): Dados brutos.
     - Ingestão do arquivo original em formato CSV, sem alterações estruturais.
-    - Todos os campos foram carregados inicialmente como string, garantindo flexibilidade no tratamento posterior.
+    - Todos os campos foram carregados inicialmente como string, garantindo a preservação do dado bruto e flexibilidade no tratamento posterior.
 - Camada Refined (Silver): Limpeza e padronização.
     - Conversão de tipos de dados (datas, inteiros e textos).
     - Tratamento da coluna de competência (formato YYYY-MM), convertendo para o tipo date com adoção do primeiro dia do mês como padrão.
     - Conversão do formato de armazenamento para Parquet, com compressão Snappy, visando melhor performance e redução de custo em consultas.
+    - - Particionamento por id_cmpt_movel para redução de custo no Athena.
 - Camada Curated (Gold): Camada voltada para consumo analítico, onde os dados são organizados em um modelo otimizado para consultas.
     - Foi adotado um modelo dimensional (Star Schema), separando métricas quantitativas de atributos descritivos, reduzindo redundância e melhorando a performance.
 
