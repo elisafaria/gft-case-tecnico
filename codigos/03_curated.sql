@@ -33,7 +33,17 @@ WITH (
     write_compression = 'SNAPPY'
 ) AS
 SELECT DISTINCT
-      cd_plano -- PK
+    to_hex(md5(to_utf8(
+        cd_operadora || '|' ||
+        cd_plano || '|' ||
+        coalesce(tp_vigencia_plano, '') || '|' ||
+        coalesce(de_contratacao_plano, '') || '|' ||
+        coalesce(de_segmentacao_plano, '') || '|' ||
+        coalesce(de_abrg_geografica_plano, '') || '|' ||
+        coalesce(cobertura_assist_plan, '')
+    ))) as id_plano -- PK
+    , cd_operadora
+    , cd_plano
     , tp_vigencia_plano
     , de_contratacao_plano
     , de_segmentacao_plano
@@ -90,7 +100,15 @@ SELECT
       id_cmpt_movel
     , cd_operadora
     , cd_municipio
-    , cd_plano
+    , to_hex(md5(to_utf8(
+        cd_operadora || '|' ||
+        cd_plano || '|' ||
+        coalesce(tp_vigencia_plano, '') || '|' ||
+        coalesce(de_contratacao_plano, '') || '|' ||
+        coalesce(de_segmentacao_plano, '') || '|' ||
+        coalesce(de_abrg_geografica_plano, '') || '|' ||
+        coalesce(cobertura_assist_plan, '')
+    ))) as id_plano
     , to_hex(
         md5(
             to_utf8(
@@ -109,7 +127,15 @@ GROUP BY
       id_cmpt_movel
     , cd_operadora
     , cd_municipio
-    , cd_plano
+    , to_hex(md5(to_utf8(
+        cd_operadora || '|' ||
+        cd_plano || '|' ||
+        coalesce(tp_vigencia_plano, '') || '|' ||
+        coalesce(de_contratacao_plano, '') || '|' ||
+        coalesce(de_segmentacao_plano, '') || '|' ||
+        coalesce(de_abrg_geografica_plano, '') || '|' ||
+        coalesce(cobertura_assist_plan, '')
+    )))
     , tp_sexo
     , de_faixa_etaria
     , de_faixa_etaria_reaj
