@@ -50,8 +50,9 @@ Para a camada Curated, optou-se por um modelo Star Schema, com uma tabela fato c
       - nm_municipio
       - sg_uf
         
-  - dim_plano: Características contratuais do plano de saúde.
-      - cd_plano (PK)
+  - dim_plano: Características contratuais do plano de saúde. Uma chave primária baseada em hash MD5 foi implementada para garantir a unicidade e integridade referencial com a tabela fato.
+      - id_plano (PK)
+      - cd_operadora
       - tp_vigencia_plano
       - de_contratacao_plano
       - de_segmentacao_plano
