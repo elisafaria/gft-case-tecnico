@@ -4,7 +4,6 @@ WITH (
     format = 'PARQUET',
     external_location = 's3://gft-case-ans-data/refined-layer/',
     write_compression = 'SNAPPY'
-    partitioned_by = ARRAY['id_cmpt_movel']
 ) AS
 SELECT
     -- Datas
@@ -13,7 +12,7 @@ SELECT
 
     -- Identificadores
     CAST(cd_operadora AS varchar) AS cd_operadora,
-    CAST(nm_razao_social AS varchar) AS nm_razao_social,
+    CAST(TRIM(nm_razao_social) AS varchar) AS nm_razao_social,
     CAST(nr_cnpj AS varchar) AS nr_cnpj,
     CAST(modalidade_operadora AS varchar) AS modalidade_operadora,
     CAST(sg_uf AS varchar) AS sg_uf,
